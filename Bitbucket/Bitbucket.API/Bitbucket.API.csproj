@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Bitbucket.API.Data\Bitbucket.API.Data.csproj" />
-    <ProjectReference Include="..\..\Bitbucket.Api.Interfaces\Bitbucket.API.Interfaces.csproj" />
+    <ProjectReference Include="..\Bitbucket.API.Data\Bitbucket.API.Data.csproj" />
+    <ProjectReference Include="..\Bitbucket.Api.Interfaces\Bitbucket.API.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

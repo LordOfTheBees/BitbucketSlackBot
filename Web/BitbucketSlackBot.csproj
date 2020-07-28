@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bitbucket.API.Data\Bitbucket.API.Data.csproj" />
-    <ProjectReference Include="..\Bitbucket.Api.Interfaces\Bitbucket.API.Interfaces.csproj" />
+    <ProjectReference Include="..\Bitbucket\Bitbucket.API.Data\Bitbucket.API.Data.csproj" />
+    <ProjectReference Include="..\Bitbucket\Bitbucket.API.Interfaces\Bitbucket.API.Interfaces.csproj" />
     <ProjectReference Include="..\Bitbucket\Bitbucket.API\Bitbucket.API.csproj" />
   </ItemGroup>
 
