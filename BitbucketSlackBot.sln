@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitbucketSlackBot", "Web\BitbucketSlackBot.csproj", "{9CC12274-CF7E-4542-AFFD-DB877D955460}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{46FE80E2-3CF7-460F-B2DB-78CBCFC7B8A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bitbucket", "Bitbucket", "{4B5AEBE9-7438-421E-9A83-D7AB17A341A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitbucket.API", "Bitbucket\Bitbucket.API\Bitbucket.API.csproj", "{E09976D4-E190-4BED-BA51-FF277A28D0AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitbucket.API.Interfaces", "Bitbucket.Api.Interfaces\Bitbucket.API.Interfaces.csproj", "{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitbucket.API.Data", "Bitbucket.API.Data\Bitbucket.API.Data.csproj", "{E3832260-2840-4BD1-891F-A8442D032851}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CC12274-CF7E-4542-AFFD-DB877D955460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC12274-CF7E-4542-AFFD-DB877D955460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC12274-CF7E-4542-AFFD-DB877D955460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC12274-CF7E-4542-AFFD-DB877D955460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E09976D4-E190-4BED-BA51-FF277A28D0AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09976D4-E190-4BED-BA51-FF277A28D0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09976D4-E190-4BED-BA51-FF277A28D0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09976D4-E190-4BED-BA51-FF277A28D0AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3832260-2840-4BD1-891F-A8442D032851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3832260-2840-4BD1-891F-A8442D032851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3832260-2840-4BD1-891F-A8442D032851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3832260-2840-4BD1-891F-A8442D032851}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9CC12274-CF7E-4542-AFFD-DB877D955460} = {46FE80E2-3CF7-460F-B2DB-78CBCFC7B8A5}
+		{E09976D4-E190-4BED-BA51-FF277A28D0AD} = {4B5AEBE9-7438-421E-9A83-D7AB17A341A0}
+		{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA} = {4B5AEBE9-7438-421E-9A83-D7AB17A341A0}
+		{E3832260-2840-4BD1-891F-A8442D032851} = {4B5AEBE9-7438-421E-9A83-D7AB17A341A0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF4A922C-3E89-4A2E-9E5B-15A9FAD02BB0}
+	EndGlobalSection
+EndGlobal
