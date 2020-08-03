@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bitbucket.API.BitbucketClients;
+using Bitbucket.API.Interfaces.BitbucketClients;
 using BitbucketSlackBot.Configs;
+using BitbucketSlackBot.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +44,8 @@ namespace BitbucketSlackBot
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<TestMiddleware>();
 
             app.UseHttpsRedirection();
 

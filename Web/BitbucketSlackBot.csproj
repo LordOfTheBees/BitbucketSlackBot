@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Bitbucket\Bitbucket.API.Data\Bitbucket.API.Data.csproj" />
     <ProjectReference Include="..\Bitbucket\Bitbucket.API.Interfaces\Bitbucket.API.Interfaces.csproj" />

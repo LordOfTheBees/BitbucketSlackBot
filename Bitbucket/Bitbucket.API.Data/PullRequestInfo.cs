@@ -83,12 +83,6 @@ namespace Bitbucket.API.Data
         public object ClosedBy { get; set; }
     }
 
-    public partial class Link
-    {
-        [JsonProperty("href")]
-        public Uri Href { get; set; }
-    }
-
     public partial class Destination
     {
         [JsonProperty("commit")]
@@ -101,12 +95,6 @@ namespace Bitbucket.API.Data
         public Branch Branch { get; set; }
     }
 
-    public partial class Branch
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
-
     public partial class Commit
     {
         [JsonProperty("hash")]
@@ -117,27 +105,6 @@ namespace Bitbucket.API.Data
 
         /// <summary>
         /// Links for interactive with commit or get additional information about it
-        /// </summary>
-        [JsonProperty("links")]
-        public Dictionary<string, Link> Links { get; set; }
-    }
-
-    public partial class Repository
-    {
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("full_name")]
-        public string FullName { get; set; }
-
-        [JsonProperty("uuid")]
-        public string Uuid { get; set; }
-
-        /// <summary>
-        /// Links for interactive with repository or get additional information about it
         /// </summary>
         [JsonProperty("links")]
         public Dictionary<string, Link> Links { get; set; }
