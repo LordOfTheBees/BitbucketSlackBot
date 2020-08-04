@@ -34,6 +34,7 @@ namespace BitbucketSlackBot.Controllers.Slack
         [HttpGet]
         public async Task<object> GetRepository()
         {
+            _logger.LogInformation("GetRepository");
             return (await _bitbucketClient.GetRepositories(RepositoryRole.Member)).Select(repo => repo.FullName);
         }
     }
