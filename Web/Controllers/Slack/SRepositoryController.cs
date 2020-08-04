@@ -31,7 +31,7 @@ namespace BitbucketSlackBot.Controllers.Slack
             _bitbucketClient = new BitbucketClient(new BasicAuthenticationClient(_authConfig.ClientID, _authConfig.ClientPassword));
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<object> GetRepository(string clientId, string clientPassword)
         {
             _logger.LogInformation("GetRepository");
@@ -40,7 +40,7 @@ namespace BitbucketSlackBot.Controllers.Slack
         }
 
 
-        [HttpGet("Test")]
+        [HttpPost("Test")]
         public async Task<object> GetRepositoryTest()
         {
             _logger.LogInformation("GetRepositoryTest");
