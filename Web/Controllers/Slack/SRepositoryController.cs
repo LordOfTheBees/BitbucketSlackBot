@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,6 +45,7 @@ namespace BitbucketSlackBot.Controllers.Slack
         public async Task<object> GetRepositoryTest()
         {
             _logger.LogInformation("GetRepositoryTest");
+            _logger.LogInformation(await (new StreamReader(this.Request.Body)).ReadToEndAsync());
             return "Test";
         }
     }

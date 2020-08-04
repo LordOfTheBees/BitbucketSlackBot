@@ -22,34 +22,11 @@ namespace BitbucketSlackBot.Middlewares
         public async Task InvokeAsync(HttpContext context)
         {
             _logger.LogInformation("=============================================================\r\n========================Request==============================");
-
             _logger.LogInformation(string.Format("{0} | {1}", context.Request.Path, string.Join('|', context.Request.Query)));
 
-            try
-            {
-                var streamReader = new StreamReader(context.Request.Body);
-                var body = streamReader.ReadToEnd();
-                _logger.LogInformation(body);
-
-                try
-                {
-                    streamReader = new StreamReader(context.Request.Body);
-                    var tmpBody = streamReader.ReadToEnd();
-                    _logger.LogInformation(body == tmpBody ? "All Good" : "No Good");
-                }
-                catch
-                {
-                    _logger.LogInformation("No Good");
-                }
-            }
-            catch
-            {
-                _logger.LogInformation("No Body");
-            }
+            await _next.Invoke(context);
 
             _logger.LogInformation("=============================================================\r\n=============================================================");
-
-            await _next.Invoke(context);
         }
     }
 }
