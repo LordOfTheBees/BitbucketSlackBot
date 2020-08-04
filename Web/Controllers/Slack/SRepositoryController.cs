@@ -38,5 +38,13 @@ namespace BitbucketSlackBot.Controllers.Slack
             var client = new BitbucketClient(new BasicAuthenticationClient(clientId, clientPassword));
             return (await client.GetRepositories(RepositoryRole.Member)).Select(repo => repo.FullName);
         }
+
+
+        [HttpGet("Test")]
+        public async Task<object> GetRepositoryTest()
+        {
+            _logger.LogInformation("GetRepositoryTest");
+            return "Test";
+        }
     }
 }
