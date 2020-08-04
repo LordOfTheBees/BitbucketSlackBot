@@ -1,8 +1,8 @@
-﻿using Bitbucket.API.Data;
+﻿using Bitbucket.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bitbucket.API.Interfaces.BitbucketClients
+namespace Bitbucket.Interfaces.BitbucketClients
 {
     public interface IBitbucketPullRequestsClient
     {

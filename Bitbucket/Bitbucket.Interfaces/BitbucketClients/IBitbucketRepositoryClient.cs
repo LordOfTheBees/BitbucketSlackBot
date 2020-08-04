@@ -1,11 +1,11 @@
-﻿using Bitbucket.API.Data;
-using Bitbucket.API.Data.EnumTypes;
+﻿using Bitbucket.Data;
+using Bitbucket.Data.EnumTypes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bitbucket.API.Interfaces.BitbucketClients
+namespace Bitbucket.Interfaces.BitbucketClients
 {
     public interface IBitbucketRepositoryClient
     {

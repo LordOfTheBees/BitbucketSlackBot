@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{46FE80E2-3CF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bitbucket", "Bitbucket", "{4B5AEBE9-7438-421E-9A83-D7AB17A341A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitbucket.API", "Bitbucket\Bitbucket.API\Bitbucket.API.csproj", "{E09976D4-E190-4BED-BA51-FF277A28D0AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitbucket", "Bitbucket\Bitbucket\Bitbucket.csproj", "{E09976D4-E190-4BED-BA51-FF277A28D0AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitbucket.API.Interfaces", "Bitbucket\Bitbucket.API.Interfaces\Bitbucket.API.Interfaces.csproj", "{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitbucket.Interfaces", "Bitbucket\Bitbucket.Interfaces\Bitbucket.Interfaces.csproj", "{F2D2DFCC-75BF-442E-89CC-2B7E6FA624EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitbucket.API.Data", "Bitbucket\Bitbucket.API.Data\Bitbucket.API.Data.csproj", "{E3832260-2840-4BD1-891F-A8442D032851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitbucket.Data", "Bitbucket\Bitbucket.Data\Bitbucket.Data.csproj", "{E3832260-2840-4BD1-891F-A8442D032851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

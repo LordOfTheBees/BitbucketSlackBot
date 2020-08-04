@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace Bitbucket.API.Interfaces.AuthenticationClients
+namespace Bitbucket.Interfaces.AuthenticationClients
 {
     public interface IAuthenticationClient
     {

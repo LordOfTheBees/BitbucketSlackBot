@@ -1,7 +1,7 @@
-﻿using Bitbucket.API.AuthenticationClients;
-using Bitbucket.API.BitbucketClients;
-using Bitbucket.API.Data.EnumTypes;
-using Bitbucket.API.Interfaces.BitbucketClients;
+﻿using Bitbucket.AuthenticationClients;
+using Bitbucket.BitbucketClients;
+using Bitbucket.Data.EnumTypes;
+using Bitbucket.Interfaces.BitbucketClients;
 using BitbucketSlackBot.Configs;
 using BitbucketSlackBot.Controllers.Bitbucket;
 using Microsoft.AspNetCore.Mvc;

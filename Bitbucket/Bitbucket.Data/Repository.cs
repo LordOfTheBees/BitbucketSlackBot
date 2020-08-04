@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bitbucket.API.Data
+namespace Bitbucket.Data
 {
     public class Repository
     {

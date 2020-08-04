@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bitbucket.API.Data.EnumTypes
+namespace Bitbucket.Data.EnumTypes
 {
     public enum RepositoryRole
     {

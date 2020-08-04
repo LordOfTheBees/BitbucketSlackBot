@@ -5,7 +5,7 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Bitbucket.API.Data
+namespace Bitbucket.Data
 {
     [DebuggerDisplay("{Id} | {Title}")]
     public partial class PullRequestInfo

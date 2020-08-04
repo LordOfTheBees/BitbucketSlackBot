@@ -1,7 +1,7 @@
-﻿using Bitbucket.API.Data;
-using Bitbucket.API.Data.EnumTypes;
-using Bitbucket.API.Interfaces.AuthenticationClients;
-using Bitbucket.API.Interfaces.BitbucketClients;
+﻿using Bitbucket.Data;
+using Bitbucket.Data.EnumTypes;
+using Bitbucket.Interfaces.AuthenticationClients;
+using Bitbucket.Interfaces.BitbucketClients;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Bitbucket.API.BitbucketClients
+namespace Bitbucket.BitbucketClients
 {
     public class BitbucketClient : IBitbucketPullRequestsClient, IBitbucketRepositoryClient, IDisposable
     {

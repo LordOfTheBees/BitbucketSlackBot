@@ -1,7 +1,7 @@
-﻿using Bitbucket.API.Interfaces.AuthenticationClients;
+﻿using Bitbucket.Interfaces.AuthenticationClients;
 using System.Net.Http;
 
-namespace Bitbucket.API.AuthenticationClients
+namespace Bitbucket.AuthenticationClients
 {
     public class BasicAuthenticationClient : IAuthenticationClient
     {
