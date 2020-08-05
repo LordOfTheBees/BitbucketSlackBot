@@ -24,12 +24,12 @@ namespace BitbucketSlackBot.Data
         public CommonRepositoryAccess CommonAccess { get; set; }
 
 
-        [ForeignKey("SlackWorkspace")]
-        public int SlackWorkspaceOwnerID { get; set; }
+        [ForeignKey("SlackTeam")]
+        public int SlackTeamOwnerID { get; set; }
 
 
         [Required]
-        public SlackWorkspace SlackWorkspaceOwner { get; set; }
+        public SlackTeam SlackTeamOwner { get; set; }
         public ICollection<SlackUserRepositoryAccess> RepositoryAccesses { get; set; }
         public ICollection<Subscriber> AllSubscribers { get; set; }
     }
