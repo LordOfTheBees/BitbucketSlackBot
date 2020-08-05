@@ -5,12 +5,14 @@ using Bitbucket.Interfaces.BitbucketClients;
 using BitbucketSlackBot.Configs;
 using BitbucketSlackBot.Controllers.Bitbucket;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BitbucketSlackBot.Controllers.Slack
@@ -20,9 +22,9 @@ namespace BitbucketSlackBot.Controllers.Slack
     {
         private readonly ILogger<SRepositoryController> _logger;
 
-        IBitbucketRepositoryClient _bitbucketClient = null;
-        BitbucketAuthConfig _authConfig = null;
-        BitbucketRepoConfig _repoConfig = null;
+        private IBitbucketRepositoryClient _bitbucketClient = null;
+        private BitbucketAuthConfig _authConfig = null;
+        private BitbucketRepoConfig _repoConfig = null;
 
         public SRepositoryController(ILogger<SRepositoryController> logger, IOptions<BitbucketAuthConfig> authConfig, IOptions<BitbucketRepoConfig> repoConfig)
         {
@@ -42,11 +44,11 @@ namespace BitbucketSlackBot.Controllers.Slack
 
 
         [HttpPost("Test")]
-        public async Task<object> GetRepositoryTest()
+        public async Task<object> PostRepositoryTest()
         {
             _logger.LogInformation("GetRepositoryTest");
             _logger.LogInformation(await (new StreamReader(this.Request.Body)).ReadToEndAsync());
-            return "Test";
+            return Ok();
         }
     }
 }
