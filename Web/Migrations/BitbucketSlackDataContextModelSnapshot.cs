@@ -66,14 +66,13 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<string>("SlackUserID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("SlackTeamID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SlackTeamID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("SlackUserID");
+                    b.HasKey("SlackUserID", "SlackTeamID");
 
                     b.HasIndex("SlackTeamID");
 
@@ -85,13 +84,16 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<string>("SlackUserID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("SlackTeamID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("BitbucketRepositoryID")
                         .HasColumnType("int");
 
                     b.Property<int>("RepositoryAccess")
                         .HasColumnType("int");
 
-                    b.HasKey("SlackUserID", "BitbucketRepositoryID");
+                    b.HasKey("SlackUserID", "SlackTeamID", "BitbucketRepositoryID");
 
                     b.HasIndex("BitbucketRepositoryID");
 
@@ -103,13 +105,16 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<string>("SlackUserID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("SlackTeamID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("BitbucketRepositoryID")
                         .HasColumnType("int");
 
                     b.Property<bool>("OnRepositoryCreated")
                         .HasColumnType("bit");
 
-                    b.HasKey("SlackUserID", "BitbucketRepositoryID");
+                    b.HasKey("SlackUserID", "SlackTeamID", "BitbucketRepositoryID");
 
                     b.HasIndex("BitbucketRepositoryID");
 
@@ -144,7 +149,7 @@ namespace BitbucketSlackBot.Migrations
 
                     b.HasOne("BitbucketSlackBot.Data.SlackUser", "SlackUser")
                         .WithMany("RepositoryAccesses")
-                        .HasForeignKey("SlackUserID")
+                        .HasForeignKey("SlackUserID", "SlackTeamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -159,7 +164,7 @@ namespace BitbucketSlackBot.Migrations
 
                     b.HasOne("BitbucketSlackBot.Data.SlackUser", "SlackUser")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("SlackUserID")
+                        .HasForeignKey("SlackUserID", "SlackTeamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

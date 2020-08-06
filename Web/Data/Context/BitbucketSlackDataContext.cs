@@ -32,9 +32,21 @@ namespace BitbucketSlackBot.Data.Context
             modelBuilder.Entity<Subscriber>().ToTable("Subscriber");
 
 
-            //modelBuilder.Entity<SlackUser>().HasKey(c => new { c.ID, c.TeamID });
-            modelBuilder.Entity<SlackUserRepositoryAccess>().HasKey(c => new { c.SlackUserID, c.BitbucketRepositoryID });
-            modelBuilder.Entity<Subscriber>().HasKey(c => new { c.SlackUserID, c.BitbucketRepositoryID });
+            modelBuilder.Entity<SlackUser>().HasKey(c => new { c.SlackUserID, c.SlackTeamID});
+            modelBuilder.Entity<SlackUserRepositoryAccess>().HasKey(c => new { c.SlackUserID, c.SlackTeamID, c.BitbucketRepositoryID });
+            modelBuilder.Entity<Subscriber>().HasKey(c => new { c.SlackUserID, c.SlackTeamID, c.BitbucketRepositoryID });
+
+            //two primary composite keys as two foreing keys
+            modelBuilder.Entity<SlackUser>()
+                .HasMany<SlackUserRepositoryAccess>(elem => elem.RepositoryAccesses)
+                .WithOne(repoAccess => repoAccess.SlackUser)
+                .HasForeignKey(repoAccess => new { repoAccess.SlackUserID, repoAccess.SlackTeamID });
+
+            modelBuilder.Entity<SlackUser>()
+                .HasMany<Subscriber>(elem => elem.Subscriptions)
+                .WithOne(subscr => subscr.SlackUser)
+                .HasForeignKey(subscr => new { subscr.SlackUserID, subscr.SlackTeamID });
+
             /*
             modelBuilder.Entity<SlackUser>()
                .HasOne(subs => subs.SlackTeam)

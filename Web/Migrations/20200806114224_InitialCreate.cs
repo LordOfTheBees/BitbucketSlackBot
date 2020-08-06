@@ -46,12 +46,12 @@ namespace BitbucketSlackBot.Migrations
                 columns: table => new
                 {
                     SlackUserID = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    SlackTeamID = table.Column<string>(nullable: false)
+                    SlackTeamID = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SlackUser", x => x.SlackUserID);
+                    table.PrimaryKey("PK_SlackUser", x => new { x.SlackUserID, x.SlackTeamID });
                     table.ForeignKey(
                         name: "FK_SlackUser_SlackTeam_SlackTeamID",
                         column: x => x.SlackTeamID,
@@ -65,12 +65,13 @@ namespace BitbucketSlackBot.Migrations
                 columns: table => new
                 {
                     SlackUserID = table.Column<string>(nullable: false),
+                    SlackTeamID = table.Column<string>(nullable: false),
                     BitbucketRepositoryID = table.Column<int>(nullable: false),
                     RepositoryAccess = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SlackUserRepositoryAccess", x => new { x.SlackUserID, x.BitbucketRepositoryID });
+                    table.PrimaryKey("PK_SlackUserRepositoryAccess", x => new { x.SlackUserID, x.SlackTeamID, x.BitbucketRepositoryID });
                     table.ForeignKey(
                         name: "FK_SlackUserRepositoryAccess_BitbucketRepository_BitbucketRepositoryID",
                         column: x => x.BitbucketRepositoryID,
@@ -78,10 +79,10 @@ namespace BitbucketSlackBot.Migrations
                         principalColumn: "BitbucketRepositoryID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SlackUserRepositoryAccess_SlackUser_SlackUserID",
-                        column: x => x.SlackUserID,
+                        name: "FK_SlackUserRepositoryAccess_SlackUser_SlackUserID_SlackTeamID",
+                        columns: x => new { x.SlackUserID, x.SlackTeamID },
                         principalTable: "SlackUser",
-                        principalColumn: "SlackUserID",
+                        principalColumns: new[] { "SlackUserID", "SlackTeamID" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -90,12 +91,13 @@ namespace BitbucketSlackBot.Migrations
                 columns: table => new
                 {
                     SlackUserID = table.Column<string>(nullable: false),
+                    SlackTeamID = table.Column<string>(nullable: false),
                     BitbucketRepositoryID = table.Column<int>(nullable: false),
                     OnRepositoryCreated = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subscriber", x => new { x.SlackUserID, x.BitbucketRepositoryID });
+                    table.PrimaryKey("PK_Subscriber", x => new { x.SlackUserID, x.SlackTeamID, x.BitbucketRepositoryID });
                     table.ForeignKey(
                         name: "FK_Subscriber_BitbucketRepository_BitbucketRepositoryID",
                         column: x => x.BitbucketRepositoryID,
@@ -103,10 +105,10 @@ namespace BitbucketSlackBot.Migrations
                         principalColumn: "BitbucketRepositoryID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subscriber_SlackUser_SlackUserID",
-                        column: x => x.SlackUserID,
+                        name: "FK_Subscriber_SlackUser_SlackUserID_SlackTeamID",
+                        columns: x => new { x.SlackUserID, x.SlackTeamID },
                         principalTable: "SlackUser",
-                        principalColumn: "SlackUserID",
+                        principalColumns: new[] { "SlackUserID", "SlackTeamID" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
