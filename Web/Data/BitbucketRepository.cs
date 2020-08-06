@@ -14,7 +14,7 @@ namespace BitbucketSlackBot.Data
 
     public class BitbucketRepository
     {
-        public int ID { get; set; }
+        public int BitbucketRepositoryID { get; set; }
 
 
         public string Workspace { get; set; }
@@ -24,13 +24,12 @@ namespace BitbucketSlackBot.Data
         public CommonRepositoryAccess CommonAccess { get; set; }
 
 
-        [ForeignKey("SlackTeam")]
-        public int SlackTeamOwnerID { get; set; }
+        public int SlackTeamID { get; set; }
 
 
         [Required]
-        public SlackTeam SlackTeamOwner { get; set; }
-        public ICollection<SlackUserRepositoryAccess> RepositoryAccesses { get; set; }
-        public ICollection<Subscriber> AllSubscribers { get; set; }
+        public virtual SlackTeam SlackTeam { get; set; }
+        public virtual ICollection<SlackUserRepositoryAccess> RepositoryAccesses { get; set; }
+        public virtual ICollection<Subscriber> Subscribers { get; set; }
     }
 }

@@ -9,13 +9,12 @@ namespace BitbucketSlackBot.Data
 {
     public class SlackTeam
     {
-        [Key]
-        public int ID { get; set; }
+        public int SlackTeamID { get; set; }
 
         public string TeamID { get; set; }
 
 
-        public ICollection<BitbucketRepository> Repositories { get; set; }
-        public ICollection<SlackUser> Users { get; set; }
+        public virtual ICollection<BitbucketRepository> Repositories { get; set; }
+        public virtual ICollection<SlackUser> Users { get; set; }
     }
 }

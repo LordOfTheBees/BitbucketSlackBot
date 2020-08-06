@@ -21,7 +21,7 @@ namespace BitbucketSlackBot.Migrations
 
             modelBuilder.Entity("BitbucketSlackBot.Data.BitbucketRepository", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("BitbucketRepositoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -35,7 +35,7 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<string>("Repository")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SlackTeamOwnerID")
+                    b.Property<int>("SlackTeamID")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -44,16 +44,16 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<string>("Workspace")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("BitbucketRepositoryID");
 
-                    b.HasIndex("SlackTeamOwnerID");
+                    b.HasIndex("SlackTeamID");
 
                     b.ToTable("BitbucketRepository");
                 });
 
             modelBuilder.Entity("BitbucketSlackBot.Data.SlackTeam", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("SlackTeamID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -61,25 +61,31 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<string>("TeamID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("SlackTeamID");
 
-                    b.ToTable("SlackWorkspace");
+                    b.ToTable("SlackTeam");
                 });
 
             modelBuilder.Entity("BitbucketSlackBot.Data.SlackUser", b =>
                 {
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamID")
-                        .HasColumnType("int");
+                    b.Property<int>("SlackUserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID", "TeamID");
+                    b.Property<int?>("SlackTeamID")
+                        .IsRequired()
+                        .HasColumnType("int");
 
-                    b.HasIndex("TeamID");
+                    b.Property<string>("UserIdentifier")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SlackUserID");
+
+                    b.HasIndex("SlackTeamID");
 
                     b.ToTable("SlackUser");
                 });
@@ -95,25 +101,9 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<int>("RepositoryAccess")
                         .HasColumnType("int");
 
-                    b.Property<int>("SlackUserID1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SlackUserID2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SlackUserTeamID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SlackUserTeamID1")
-                        .HasColumnType("int");
-
                     b.HasKey("SlackUserID", "BitbucketRepositoryID");
 
                     b.HasIndex("BitbucketRepositoryID");
-
-                    b.HasIndex("SlackUserID1", "SlackUserTeamID");
-
-                    b.HasIndex("SlackUserID2", "SlackUserTeamID1");
 
                     b.ToTable("SlackUserRepositoryAccess");
                 });
@@ -129,83 +119,59 @@ namespace BitbucketSlackBot.Migrations
                     b.Property<bool>("OnRepositoryCreated")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SlackUserID1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SlackUserID2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SlackUserTeamID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SlackUserTeamID1")
-                        .HasColumnType("int");
-
                     b.HasKey("SlackUserID", "BitbucketRepositoryID");
 
                     b.HasIndex("BitbucketRepositoryID");
-
-                    b.HasIndex("SlackUserID1", "SlackUserTeamID");
-
-                    b.HasIndex("SlackUserID2", "SlackUserTeamID1");
 
                     b.ToTable("Subscriber");
                 });
 
             modelBuilder.Entity("BitbucketSlackBot.Data.BitbucketRepository", b =>
                 {
-                    b.HasOne("BitbucketSlackBot.Data.SlackTeam", "SlackTeamOwner")
+                    b.HasOne("BitbucketSlackBot.Data.SlackTeam", "SlackTeam")
                         .WithMany("Repositories")
-                        .HasForeignKey("SlackTeamOwnerID")
+                        .HasForeignKey("SlackTeamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("BitbucketSlackBot.Data.SlackUser", b =>
                 {
-                    b.HasOne("BitbucketSlackBot.Data.SlackTeam", "Team")
+                    b.HasOne("BitbucketSlackBot.Data.SlackTeam", "SlackTeam")
                         .WithMany("Users")
-                        .HasForeignKey("TeamID")
+                        .HasForeignKey("SlackTeamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("BitbucketSlackBot.Data.SlackUserRepositoryAccess", b =>
                 {
-                    b.HasOne("BitbucketSlackBot.Data.BitbucketRepository", "Repository")
+                    b.HasOne("BitbucketSlackBot.Data.BitbucketRepository", "BitbucketRepository")
                         .WithMany("RepositoryAccesses")
                         .HasForeignKey("BitbucketRepositoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BitbucketSlackBot.Data.SlackUser", "SlackUser")
-                        .WithMany()
-                        .HasForeignKey("SlackUserID1", "SlackUserTeamID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BitbucketSlackBot.Data.SlackUser", null)
                         .WithMany("RepositoryAccesses")
-                        .HasForeignKey("SlackUserID2", "SlackUserTeamID1");
+                        .HasForeignKey("SlackUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BitbucketSlackBot.Data.Subscriber", b =>
                 {
-                    b.HasOne("BitbucketSlackBot.Data.BitbucketRepository", "Repository")
-                        .WithMany("AllSubscribers")
+                    b.HasOne("BitbucketSlackBot.Data.BitbucketRepository", "BitbucketRepository")
+                        .WithMany("Subscribers")
                         .HasForeignKey("BitbucketRepositoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BitbucketSlackBot.Data.SlackUser", "SlackUser")
-                        .WithMany()
-                        .HasForeignKey("SlackUserID1", "SlackUserTeamID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("SlackUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BitbucketSlackBot.Data.SlackUser", null)
-                        .WithMany("AllSubscriptions")
-                        .HasForeignKey("SlackUserID2", "SlackUserTeamID1");
                 });
 #pragma warning restore 612, 618
         }

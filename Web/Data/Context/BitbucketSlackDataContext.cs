@@ -9,7 +9,7 @@ namespace BitbucketSlackBot.Data.Context
     public class BitbucketSlackDataContext : DbContext
     {
 
-        public DbSet<SlackTeam> SlackWorkspaces { get; set; }
+        public DbSet<SlackTeam> SlackTeams { get; set; }
         public DbSet<SlackUser> SlackUsers { get; set; }
         public DbSet<BitbucketRepository> Repositories { get; set; }
 
@@ -24,7 +24,7 @@ namespace BitbucketSlackBot.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SlackTeam>().ToTable("SlackWorkspace");
+            modelBuilder.Entity<SlackTeam>().ToTable("SlackTeam");
             modelBuilder.Entity<SlackUser>().ToTable("SlackUser");
 
             modelBuilder.Entity<BitbucketRepository>().ToTable("BitbucketRepository");
@@ -32,19 +32,32 @@ namespace BitbucketSlackBot.Data.Context
             modelBuilder.Entity<Subscriber>().ToTable("Subscriber");
 
 
-            modelBuilder.Entity<SlackUser>().HasKey(c => new { c.ID, c.TeamID });
+            //modelBuilder.Entity<SlackUser>().HasKey(c => new { c.ID, c.TeamID });
             modelBuilder.Entity<SlackUserRepositoryAccess>().HasKey(c => new { c.SlackUserID, c.BitbucketRepositoryID });
             modelBuilder.Entity<Subscriber>().HasKey(c => new { c.SlackUserID, c.BitbucketRepositoryID });
-
+            /*
+            modelBuilder.Entity<SlackUser>()
+               .HasOne(subs => subs.SlackTeam)
+               .WithMany()
+               .OnDelete(DeleteBehavior.Restrict);
+            /*
             modelBuilder.Entity<Subscriber>()
                .HasOne(subs => subs.SlackUser)
                .WithMany()
                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Subscriber>()
+               .HasOne(subs => subs.BitbucketRepository)
+               .WithMany()
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<SlackUserRepositoryAccess>()
                .HasOne(access => access.SlackUser)
                .WithMany()
                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<SlackUserRepositoryAccess>()
+               .HasOne(access => access.BitbucketRepository)
+               .WithMany()
+               .OnDelete(DeleteBehavior.Cascade);*/
         }
     }
 }
