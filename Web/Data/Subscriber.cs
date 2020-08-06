@@ -12,7 +12,7 @@ namespace BitbucketSlackBot.Data
         public bool OnRepositoryCreated { get; set; }
 
 
-        public int SlackUserID { get; set; }
+        public string SlackUserID { get; set; }
         public int BitbucketRepositoryID { get; set; }
 
 

@@ -19,7 +19,7 @@ namespace BitbucketSlackBot.Data
     {
         public RepositoryAccess RepositoryAccess { get; set; }
 
-        public int SlackUserID { get; set; }
+        public string SlackUserID { get; set; }
         public int BitbucketRepositoryID { get; set; }
 
         //[ForeignKey("SlackUserID")]

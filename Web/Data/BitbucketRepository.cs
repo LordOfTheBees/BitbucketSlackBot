@@ -24,7 +24,7 @@ namespace BitbucketSlackBot.Data
         public CommonRepositoryAccess CommonAccess { get; set; }
 
 
-        public int SlackTeamID { get; set; }
+        public string SlackTeamID { get; set; }
 
 
         [Required]

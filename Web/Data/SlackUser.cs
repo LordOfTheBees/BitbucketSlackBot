@@ -10,13 +10,13 @@ namespace BitbucketSlackBot.Data
 {
     public class SlackUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
-        public int SlackUserID { get; set; }
+        public string SlackUserID { get; set; }
 
-        public string UserIdentifier { get; set; }
         public string Name { get; set; }
 
-        public int? SlackTeamID { get; set; }
+        public string SlackTeamID { get; set; }
 
         [Required]
         public virtual SlackTeam SlackTeam { get; set; }

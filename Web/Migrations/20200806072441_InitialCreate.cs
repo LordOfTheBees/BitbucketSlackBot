@@ -10,9 +10,7 @@ namespace BitbucketSlackBot.Migrations
                 name: "SlackTeam",
                 columns: table => new
                 {
-                    SlackTeamID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamID = table.Column<string>(nullable: true)
+                    SlackTeamID = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +28,7 @@ namespace BitbucketSlackBot.Migrations
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     CommonAccess = table.Column<int>(nullable: false),
-                    SlackTeamID = table.Column<int>(nullable: false)
+                    SlackTeamID = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,18 +38,16 @@ namespace BitbucketSlackBot.Migrations
                         column: x => x.SlackTeamID,
                         principalTable: "SlackTeam",
                         principalColumn: "SlackTeamID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SlackUser",
                 columns: table => new
                 {
-                    SlackUserID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserIdentifier = table.Column<string>(nullable: true),
+                    SlackUserID = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    SlackTeamID = table.Column<int>(nullable: false)
+                    SlackTeamID = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,14 +57,14 @@ namespace BitbucketSlackBot.Migrations
                         column: x => x.SlackTeamID,
                         principalTable: "SlackTeam",
                         principalColumn: "SlackTeamID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SlackUserRepositoryAccess",
                 columns: table => new
                 {
-                    SlackUserID = table.Column<int>(nullable: false),
+                    SlackUserID = table.Column<string>(nullable: false),
                     BitbucketRepositoryID = table.Column<int>(nullable: false),
                     RepositoryAccess = table.Column<int>(nullable: false)
                 },
@@ -93,7 +89,7 @@ namespace BitbucketSlackBot.Migrations
                 name: "Subscriber",
                 columns: table => new
                 {
-                    SlackUserID = table.Column<int>(nullable: false),
+                    SlackUserID = table.Column<string>(nullable: false),
                     BitbucketRepositoryID = table.Column<int>(nullable: false),
                     OnRepositoryCreated = table.Column<bool>(nullable: false)
                 },

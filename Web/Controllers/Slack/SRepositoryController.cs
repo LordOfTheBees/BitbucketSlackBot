@@ -59,9 +59,9 @@ namespace BitbucketSlackBot.Controllers.Slack
         [HttpGet("Test")]
         public async Task<object> GetTest()
         {
-           // var user2 = _dataBaseContext.SlackUsers.FirstOrDefault(usr => usr.SlackUserID == 2);
-           // var user3 = _dataBaseContext.SlackUsers.FirstOrDefault(usr => usr.SlackUserID == 2);
-            //var team = _dataBaseContext.SlackTeams.FirstOrDefault(tm => tm.SlackTeamID == 1);
+            //var user2 = _dataBaseContext.SlackUsers.FirstOrDefault(usr => usr.SlackUserID == "user1");
+            //var user3 = _dataBaseContext.SlackUsers.FirstOrDefault(usr => usr.SlackUserID == "user1");
+            //var team = _dataBaseContext.SlackTeams.FirstOrDefault(tm => tm.SlackTeamID == "team1");
             return Ok();
         }
     }
