@@ -32,7 +32,8 @@ namespace BitbucketSlackBot.Data.Context
             modelBuilder.Entity<Subscriber>().ToTable("Subscriber");
 
 
-            modelBuilder.Entity<SlackUser>().HasKey(c => new { c.SlackUserID, c.SlackTeamID});
+            modelBuilder.Entity<SlackUser>().HasKey(c => new { c.SlackUserID, c.SlackTeamID });
+            modelBuilder.Entity<BitbucketRepository>().HasKey(c => new { c.BitbucketRepositoryUUID, c.SlackTeamID });
             modelBuilder.Entity<SlackUserRepositoryAccess>().HasKey(c => new { c.SlackUserID, c.SlackTeamID, c.BitbucketRepositoryID });
             modelBuilder.Entity<Subscriber>().HasKey(c => new { c.SlackUserID, c.SlackTeamID, c.BitbucketRepositoryID });
 
@@ -41,12 +42,22 @@ namespace BitbucketSlackBot.Data.Context
                 .HasMany<SlackUserRepositoryAccess>(elem => elem.RepositoryAccesses)
                 .WithOne(repoAccess => repoAccess.SlackUser)
                 .HasForeignKey(repoAccess => new { repoAccess.SlackUserID, repoAccess.SlackTeamID });
-
             modelBuilder.Entity<SlackUser>()
                 .HasMany<Subscriber>(elem => elem.Subscriptions)
                 .WithOne(subscr => subscr.SlackUser)
                 .HasForeignKey(subscr => new { subscr.SlackUserID, subscr.SlackTeamID });
 
+            modelBuilder.Entity<BitbucketRepository>()
+                .HasMany<SlackUserRepositoryAccess>(elem => elem.RepositoryAccesses)
+                .WithOne(repoAccess => repoAccess.BitbucketRepository)
+                .HasForeignKey(repoAccess => new { repoAccess.BitbucketRepositoryID, repoAccess.BitbucketSlackTeamID });
+            modelBuilder.Entity<BitbucketRepository>()
+                .HasMany<Subscriber>(elem => elem.Subscribers)
+                .WithOne(subscr => subscr.BitbucketRepository)
+                .HasForeignKey(subscr => new { subscr.BitbucketRepositoryID, subscr.BitbucketSlackTeamID });
+
+            modelBuilder.Entity<SlackUserRepositoryAccess>(sura => sura.HasCheckConstraint("SURA_CC_TeamIDMustBeEquals", "[BitbucketSlackTeamID] = [SlackTeamID]"));
+            modelBuilder.Entity<Subscriber>(sura => sura.HasCheckConstraint("S_CC_TeamIDMustBeEquals", "[BitbucketSlackTeamID] = [SlackTeamID]"));
             /*
             modelBuilder.Entity<SlackUser>()
                .HasOne(subs => subs.SlackTeam)

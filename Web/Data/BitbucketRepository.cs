@@ -14,7 +14,9 @@ namespace BitbucketSlackBot.Data
 
     public class BitbucketRepository
     {
-        public int BitbucketRepositoryID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        public Guid BitbucketRepositoryUUID { get; set; }
 
 
         public string Workspace { get; set; }

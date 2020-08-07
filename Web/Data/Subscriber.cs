@@ -14,7 +14,8 @@ namespace BitbucketSlackBot.Data
 
         public string SlackUserID { get; set; }
         public string SlackTeamID { get; set; }
-        public int BitbucketRepositoryID { get; set; }
+        public Guid BitbucketRepositoryID { get; set; }
+        public string BitbucketSlackTeamID { get; set; }
 
 
         [Required]

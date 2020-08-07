@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BitbucketSlackBot.Migrations
 {
@@ -10,7 +11,7 @@ namespace BitbucketSlackBot.Migrations
                 name: "SlackTeam",
                 columns: table => new
                 {
-                    SlackTeamID = table.Column<string>(nullable: false)
+                    SlackTeamID = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -21,31 +22,30 @@ namespace BitbucketSlackBot.Migrations
                 name: "BitbucketRepository",
                 columns: table => new
                 {
-                    BitbucketRepositoryID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BitbucketRepositoryUUID = table.Column<Guid>(nullable: false),
+                    SlackTeamID = table.Column<string>(nullable: false),
                     Workspace = table.Column<string>(nullable: true),
                     Repository = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    CommonAccess = table.Column<int>(nullable: false),
-                    SlackTeamID = table.Column<string>(nullable: false)
+                    CommonAccess = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BitbucketRepository", x => x.BitbucketRepositoryID);
+                    table.PrimaryKey("PK_BitbucketRepository", x => new { x.BitbucketRepositoryUUID, x.SlackTeamID });
                     table.ForeignKey(
                         name: "FK_BitbucketRepository_SlackTeam_SlackTeamID",
                         column: x => x.SlackTeamID,
                         principalTable: "SlackTeam",
                         principalColumn: "SlackTeamID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SlackUser",
                 columns: table => new
                 {
-                    SlackUserID = table.Column<string>(nullable: false),
+                    SlackUserID = table.Column<string>(maxLength: 30, nullable: false),
                     SlackTeamID = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
@@ -66,17 +66,19 @@ namespace BitbucketSlackBot.Migrations
                 {
                     SlackUserID = table.Column<string>(nullable: false),
                     SlackTeamID = table.Column<string>(nullable: false),
-                    BitbucketRepositoryID = table.Column<int>(nullable: false),
-                    RepositoryAccess = table.Column<int>(nullable: false)
+                    BitbucketRepositoryID = table.Column<Guid>(nullable: false),
+                    RepositoryAccess = table.Column<int>(nullable: false),
+                    BitbucketSlackTeamID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SlackUserRepositoryAccess", x => new { x.SlackUserID, x.SlackTeamID, x.BitbucketRepositoryID });
+                    table.CheckConstraint("SURA_CC_TeamIDMustBeEquals", "[BitbucketSlackTeamID] = [SlackTeamID]");
                     table.ForeignKey(
-                        name: "FK_SlackUserRepositoryAccess_BitbucketRepository_BitbucketRepositoryID",
-                        column: x => x.BitbucketRepositoryID,
+                        name: "FK_SlackUserRepositoryAccess_BitbucketRepository_BitbucketRepositoryID_BitbucketSlackTeamID",
+                        columns: x => new { x.BitbucketRepositoryID, x.BitbucketSlackTeamID },
                         principalTable: "BitbucketRepository",
-                        principalColumn: "BitbucketRepositoryID",
+                        principalColumns: new[] { "BitbucketRepositoryUUID", "SlackTeamID" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SlackUserRepositoryAccess_SlackUser_SlackUserID_SlackTeamID",
@@ -92,17 +94,19 @@ namespace BitbucketSlackBot.Migrations
                 {
                     SlackUserID = table.Column<string>(nullable: false),
                     SlackTeamID = table.Column<string>(nullable: false),
-                    BitbucketRepositoryID = table.Column<int>(nullable: false),
-                    OnRepositoryCreated = table.Column<bool>(nullable: false)
+                    BitbucketRepositoryID = table.Column<Guid>(nullable: false),
+                    OnRepositoryCreated = table.Column<bool>(nullable: false),
+                    BitbucketSlackTeamID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subscriber", x => new { x.SlackUserID, x.SlackTeamID, x.BitbucketRepositoryID });
+                    table.CheckConstraint("S_CC_TeamIDMustBeEquals", "[BitbucketSlackTeamID] = [SlackTeamID]");
                     table.ForeignKey(
-                        name: "FK_Subscriber_BitbucketRepository_BitbucketRepositoryID",
-                        column: x => x.BitbucketRepositoryID,
+                        name: "FK_Subscriber_BitbucketRepository_BitbucketRepositoryID_BitbucketSlackTeamID",
+                        columns: x => new { x.BitbucketRepositoryID, x.BitbucketSlackTeamID },
                         principalTable: "BitbucketRepository",
-                        principalColumn: "BitbucketRepositoryID",
+                        principalColumns: new[] { "BitbucketRepositoryUUID", "SlackTeamID" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Subscriber_SlackUser_SlackUserID_SlackTeamID",
@@ -123,14 +127,14 @@ namespace BitbucketSlackBot.Migrations
                 column: "SlackTeamID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SlackUserRepositoryAccess_BitbucketRepositoryID",
+                name: "IX_SlackUserRepositoryAccess_BitbucketRepositoryID_BitbucketSlackTeamID",
                 table: "SlackUserRepositoryAccess",
-                column: "BitbucketRepositoryID");
+                columns: new[] { "BitbucketRepositoryID", "BitbucketSlackTeamID" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscriber_BitbucketRepositoryID",
+                name: "IX_Subscriber_BitbucketRepositoryID_BitbucketSlackTeamID",
                 table: "Subscriber",
-                column: "BitbucketRepositoryID");
+                columns: new[] { "BitbucketRepositoryID", "BitbucketSlackTeamID" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

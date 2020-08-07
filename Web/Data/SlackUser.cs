@@ -11,6 +11,7 @@ namespace BitbucketSlackBot.Data
     public class SlackUser
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(30)]
         [Key]
         public string SlackUserID { get; set; }
 
